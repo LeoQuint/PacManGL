@@ -1,0 +1,27 @@
+﻿  Wallmanager.cpp
+  TitleScreen.cpp
+  Text.cpp
+  Powerup.cpp
+  Pinky.cpp
+  Pacman.cpp
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pacman.cpp(102): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+  Node.cpp
+  MyDrawable.cpp
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\mydrawable.cpp(23): warning C4838: conversion from 'double' to 'const GLfloat' requires a narrowing conversion
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\mydrawable.cpp(43): warning C4838: conversion from 'double' to 'const GLfloat' requires a narrowing conversion
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\mydrawable.cpp(63): warning C4838: conversion from 'double' to 'const GLfloat' requires a narrowing conversion
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\mydrawable.cpp(68): warning C4838: conversion from 'double' to 'const GLfloat' requires a narrowing conversion
+  main.cpp
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\main.cpp(13): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\main.cpp(14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\main.cpp(19): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+  Inky.cpp
+  Ghost.cpp
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\ghost.cpp(136): warning C4477: 'printf' : format string '%i' requires an argument of type 'int', but variadic argument 1 has type 'double'
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\ghost.cpp(136): warning C4477: 'printf' : format string '%i' requires an argument of type 'int', but variadic argument 2 has type 'double'
+  Game.cpp
+  Dot.cpp
+  Clyde.cpp
+  Blinky.cpp
+  Generating Code...
+  OpenGL_Starter_Kit.vcxproj -> C:\Users\Leonard\Desktop\PacManGL\Debug\OpenGL_Starter_Kit.exe
