@@ -270,10 +270,11 @@ void Game::initGameboard(void)
 			if (this->initial_gameboard[i][j] == 'd' || this->initial_gameboard[i][j] == 'u' || this->initial_gameboard[i][j] == 'f'  || this->initial_gameboard[i][j] == 'w') {
 				dots++;
 			}
-			gameboard[i][j] = this->initial_gameboard[i][j];
+			gameboard[i][j] = this->initial_gameboard[i][j];		
 		}
 	}
 }
+
 
 void Game::keyListener(int key, int x, int y)
 {

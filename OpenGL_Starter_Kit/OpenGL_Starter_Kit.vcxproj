@@ -30,9 +30,11 @@
     <ClInclude Include="MyDrawable.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Pacman.h" />
+    <ClInclude Include="PathFinding.h" />
     <ClInclude Include="Powerup.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TitleScreen.h" />
+    <ClInclude Include="vector2.h" />
     <ClInclude Include="Wallmanager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +48,7 @@
     <ClCompile Include="MyDrawable.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Pacman.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Pinky.cpp" />
     <ClCompile Include="Powerup.cpp" />
     <ClCompile Include="Text.cpp" />

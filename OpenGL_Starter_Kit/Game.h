@@ -8,6 +8,9 @@
 #include "Dot.h"
 #include "Wallmanager.h"
 #include "Text.h"
+#include "Node.h"
+#include <vector>
+
 class Game
 {
 public:
@@ -35,7 +38,6 @@ private:
 	void initHeaders(void);
 	boolean paused;
 	int dots;
-	void updatePacman(int x, int y);
 	void initGameboard(void);
 	void levelUp(void);
 	void newLevel(void);
@@ -48,6 +50,7 @@ private:
 	Powerup* powerup;
 	Dot* dot;
 	Wallmanager* wallmanager;
+
 	int x;
 	int y;
 	const static char initial_gameboard[31][28];

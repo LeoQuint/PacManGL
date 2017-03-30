@@ -101,6 +101,8 @@ boolean Ghost::update(int x, int y, char gameboard[][28])
 	}
 	return false;
 }
+							
+
 
 void Ghost::chase(int x, int y, char gameboard[][28])
 {
@@ -259,18 +261,6 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 	}
 	
 	
-
-	/*if ((rand() % 10) < move_prob) 
-	{
-		if ((rand() % 10) < change_prob) 
-		{
-			dir = rand() % 4;
-		}
-		while (!goTo(dir, gameboard))
-		{
-			dir = rand() % 4;
-		}
-	}*/
 }
 boolean Ghost::goTo(int dir, char gameboard[][28])
 {
@@ -329,3 +319,4 @@ void Ghost::die(void)
 	going_out = true;
 	material = my_material;
 }
+
