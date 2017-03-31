@@ -53,6 +53,7 @@
     <ClCompile Include="Powerup.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="vector2.cpp" />
     <ClCompile Include="Wallmanager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

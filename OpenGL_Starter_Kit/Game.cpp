@@ -3,6 +3,7 @@
 #include <iostream>
 #include <mmsystem.h>
 
+
 const char Game::initial_gameboard[31][28] = {//i = empty intersection, f = intersection with d, w = intersection with u
 											{'1','2','2','2','2','2','2','2','2','2','2','2','2','3','1','2','2','2','2','2','2','2','2','2','2','2','2','3'},
 											{'8','f','d','d','d','d','f','d','d','d','d','d','f','4','8','f','d','d','d','d','d','f','d','d','d','d','f','4'},
@@ -46,6 +47,8 @@ Game::Game(void)
 	blinky = new Blinky();
 	inky = new Inky();
 	clyde = new Clyde();
+	pathfinder = new PathFinding();
+	
 	speed = 200;
 	level = 1;
 	score = 0;
@@ -204,9 +207,20 @@ void Game::update(void)
 		}
 		boolean hit = false;
 
-
+		printf("Pinky is at: %i %i\n", pinky->GetX(), pinky->GetY());
 		hit = pinky->update(x, y, gameboard) || hit;
+		//testing
+		if (!pinky->IsGoingOut())
+		{
+			printf("Pinky is at: %i %i\n", pinky->GetX(), pinky->GetY());
+			pathfinder->ClearOpenList();
+			pathfinder->ClearPath();
+			pathfinder->ClearVisitedList();
+			pathfinder->FindPath(vector2(pinky->GetX(), pinky->GetY()), vector2(pacman->GetX(), pacman->GetY()));
 
+			printf("path found: %i%i\n", pathfinder->NextPathPosition(pinky).x, pathfinder->NextPathPosition(pinky).y);
+		}
+		///
 		hit = blinky->update(x, y, gameboard) || hit;
 
 		hit = inky->update(x, y, gameboard) || hit;
@@ -248,6 +262,8 @@ void Game::newLevel(void)
 	clyde->setPoint(15, 14);
 	dots = 0;
 	initGameboard();
+	pathfinder->InitGrid(grid);
+	
 }
 void Game::pause(void)
 {
@@ -265,14 +281,42 @@ void Game::initGameboard(void)
 {
 	for (int i = 0; i < 31; i++)
 	{
+		std::vector<Node*> row;
+		
 		for (int j = 0; j < 28; j++)
 		{
 			if (this->initial_gameboard[i][j] == 'd' || this->initial_gameboard[i][j] == 'u' || this->initial_gameboard[i][j] == 'f'  || this->initial_gameboard[i][j] == 'w') {
 				dots++;
 			}
-			gameboard[i][j] = this->initial_gameboard[i][j];		
+			gameboard[i][j] = this->initial_gameboard[i][j];
+			Node *n = new Node(
+				this->initial_gameboard[i][j] == 'd' || 
+				this->initial_gameboard[i][j] == 'u' || 
+				this->initial_gameboard[i][j] == 'f' || 
+				this->initial_gameboard[i][j] == 'w' || 
+				this->initial_gameboard[i][j] == '0' ||
+				this->initial_gameboard[i][j] == 'i',
+				i, j, NULL
+				);
+			row.push_back(n);
 		}
+		grid.push_back(row);
 	}
+	//debug
+	for (int i = 0; i < 31; i++)
+	{
+
+		for (int j = 0; j < 28; j++)
+		{
+			if (grid[i][j]->walkable)
+				printf(" ");
+			else
+				printf("#");
+
+		}
+		printf("\n");
+	}
+
 }
 
 

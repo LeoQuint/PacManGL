@@ -127,7 +127,7 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 	case 'i':
 	case 'f':
 	case 'w':
-		printf("Intersection!! \n");
+		//printf("Intersection!! \n");
 		
 		if (rand() % 100 < wrong_prob)
 		{
@@ -135,7 +135,7 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 		}
 		break;	
 	default:
-		printf("not an intersection %i%i%c\n",this->y,this->x, gameboard[my][mx]);
+		//printf("not an intersection %i%i%c\n",this->y,this->x, gameboard[my][mx]);
 		goTo(dir, gameboard);
 		return;
 		break;

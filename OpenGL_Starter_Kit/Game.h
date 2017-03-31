@@ -10,6 +10,7 @@
 #include "Text.h"
 #include "Node.h"
 #include <vector>
+#include "PathFinding.h"
 
 class Game
 {
@@ -50,7 +51,8 @@ private:
 	Powerup* powerup;
 	Dot* dot;
 	Wallmanager* wallmanager;
-
+	std::vector<std::vector<Node*>> grid;
+	PathFinding* pathfinder;
 	int x;
 	int y;
 	const static char initial_gameboard[31][28];

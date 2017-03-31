@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
 {
     glutInit(&argc, argv);
     glutInitWindowSize(width,height);	
-    glutInitWindowPosition(100,50);
+    glutInitWindowPosition(400,50);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
     glutCreateWindow("Pacman");
 	initObjects();
