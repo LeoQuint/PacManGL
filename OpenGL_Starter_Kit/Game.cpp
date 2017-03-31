@@ -47,7 +47,7 @@ Game::Game(void)
 	blinky = new Blinky();
 	inky = new Inky();
 	clyde = new Clyde();
-	pathfinder = new PathFinding();
+	
 	
 	speed = 200;
 	level = 1;
@@ -208,18 +208,10 @@ void Game::update(void)
 		boolean hit = false;
 
 		printf("Pinky is at: %i %i\n", pinky->GetX(), pinky->GetY());
-		hit = pinky->update(x, y, gameboard) || hit;
+		
 		//testing
-		if (!pinky->IsGoingOut())
-		{
-			printf("Pinky is at: %i %i\n", pinky->GetX(), pinky->GetY());
-			pathfinder->ClearOpenList();
-			pathfinder->ClearPath();
-			pathfinder->ClearVisitedList();
-			pathfinder->FindPath(vector2(pinky->GetX(), pinky->GetY()), vector2(pacman->GetX(), pacman->GetY()));
-
-			printf("path found: %i%i\n", pathfinder->NextPathPosition(pinky).x, pathfinder->NextPathPosition(pinky).y);
-		}
+		
+		hit = pinky->update(x, y, gameboard) || hit;
 		///
 		hit = blinky->update(x, y, gameboard) || hit;
 
@@ -259,10 +251,10 @@ void Game::newLevel(void)
 	pinky->setPoint(12, 14);
 	blinky->setPoint(13, 14);
 	inky->setPoint(14, 14);
-	clyde->setPoint(15, 14);
+	clyde->setPoint(14, 14);
 	dots = 0;
 	initGameboard();
-	pathfinder->InitGrid(grid);
+	
 	
 }
 void Game::pause(void)
@@ -295,13 +287,19 @@ void Game::initGameboard(void)
 				this->initial_gameboard[i][j] == 'f' || 
 				this->initial_gameboard[i][j] == 'w' || 
 				this->initial_gameboard[i][j] == '0' ||
-				this->initial_gameboard[i][j] == 'i',
+				this->initial_gameboard[i][j] == 'i' ||
+				this->initial_gameboard[i][j] == '-',
 				i, j, NULL
 				);
 			row.push_back(n);
 		}
 		grid.push_back(row);
 	}
+	//Assign the grid to each ghosts
+	pinky->InitGid(grid);
+	blinky->InitGid(grid);
+	inky->InitGid(grid);
+	clyde->InitGid(grid);
 	//debug
 	for (int i = 0; i < 31; i++)
 	{

@@ -5,10 +5,13 @@
 #include <stdlib.h>  
 #include "Node.h"
 
+
 const int Ghost::mat = 3;
 
 Ghost::Ghost(void)
 {
+	pathfinder = new PathFinding();
+	
 	x = 0;
 	y = 0;
 	z = 0;
@@ -42,6 +45,11 @@ Ghost::~Ghost(void)
 {
 }
 
+void Ghost::InitGid(std::vector<std::vector<Node*>> myGrid) 
+{
+	pathfinder->InitGrid(myGrid);
+}
+
 boolean Ghost::update(int x, int y, char gameboard[][28])
 {
 	if (mortal > 0)//delay to be normal again.
@@ -73,6 +81,7 @@ boolean Ghost::update(int x, int y, char gameboard[][28])
 	}
 	else if (moving) 
 	{
+		printf("Moving...");
 		if (this->x == x && this->y == y) 
 		{
 			if (mortal > 0) 
@@ -102,18 +111,45 @@ boolean Ghost::update(int x, int y, char gameboard[][28])
 	return false;
 }
 							
+void Ghost::CalculatePath(int x, int y) 
+{
+	if (!this->IsGoingOut() && vector2(this->x, this->y) != *pathfinder->m_currentPathFrom)
+	{
+		pathfinder->ClearOpenList();
+		pathfinder->ClearPath();
+		pathfinder->ClearVisitedList();
+		pathfinder->FindPath(vector2(this->GetX(), this->GetY()), vector2(x, y));
+		
+		vector2 myPos = pathfinder->NextPathPosition();
+		vector2 nextPos = pathfinder->NextPathPosition();
+		vector2 nextDir = nextPos - myPos;
+		
+		if (nextDir.x == 1)
+		{
+			printf("Next direction right: %f%f\n", nextDir.x, nextDir.y);
+			dir = 0;
+		}
+		else if (nextDir.x == -1) 
+		{
+			printf("Next direction left: %f%f\n", nextDir.x, nextDir.y);
+			dir = 2;
+		}
+		else if (nextDir.y == 1)
+		{
+			printf("Next direction down: %f%f\n", nextDir.x, nextDir.y);
+			dir = 1;
+		}
+		else 
+		{
+			printf("Next direction up: %f%f\n", nextDir.x, nextDir.y);
+			dir = 3;
+		}
 
-
+	}
+}
+				//x y represent pacman's position.
 void Ghost::chase(int x, int y, char gameboard[][28])
 {
-	//a*
-	//gcost = distance travelled
-	//hcost = distance flying.
-	//fcost = total
-	
-	int gCost = 0;
-	int hCost = abs(this->x - x) + abs(this->y - y);
-	int fCost = gCost + hCost;
 
 	int deltaX = abs(this->x - x);
 	int deltaY = abs(this->y - y);
@@ -121,18 +157,23 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 	int mx = this->x;
 	int my = this->y;
 	bool isWrong = false;
-
+	
 	switch (gameboard[my][mx])
 	{
 	case 'i':
 	case 'f':
 	case 'w':
 		//printf("Intersection!! \n");
-		
-		if (rand() % 100 < wrong_prob)
+		//Calculating a new target each intersection.
+		if (rand() % 100 < wrong_prob)//Calculate if the AI will go in a diff direction.
 		{
 			isWrong = true;
 		}
+		printf("DIRECTION: %i\n", dir);
+		printf("This ghost is %i material. (blinky 4, inky 5, pinky 6, clyde 16 )\n", this->my_material);
+		CalculatePath(x, y);
+		printf("DIRECTION: %i\n", dir);
+		printf("This ghost is %i material. (blinky 4, inky 5, pinky 6, clyde 16 )\n", this->my_material);
 		break;	
 	default:
 		//printf("not an intersection %i%i%c\n",this->y,this->x, gameboard[my][mx]);
@@ -141,6 +182,7 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 		break;
 	}
 	//try the best direction.
+	/*
 	if (!isWrong) 
 	{
 		if (deltaX > deltaY)
@@ -191,7 +233,7 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 			}
 		}
 	}
-	
+	*/
 
 	std::vector<int> tryed;
 	
@@ -300,6 +342,29 @@ boolean Ghost::goTo(int dir, char gameboard[][28])
 		break;
 	}
 }
+boolean Ghost::goTo(vector2 location, char gameboard[][28])
+{
+
+	switch (gameboard[int(location.x)][int(location.y)])
+	{
+	case '0':
+	case 'i':
+	case 'd':
+	case 'f':
+	case 'u':
+	case 'w':
+
+		this->y = int(location.y);
+		this->x = int(location.x);
+		return true;
+	case '9':
+		wrap();
+	default:
+		return false;
+		break;
+	}
+}
+
 void Ghost::wrap(void)
 {
 	setPoint(abs(x - 27), y);

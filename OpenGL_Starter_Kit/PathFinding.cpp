@@ -55,7 +55,7 @@ void PathFinding::FindPath(vector2 currentPos, vector2 targetPos)
 	}
 }
 
-vector2 PathFinding::NextPathPosition(Ghost *ghost)
+vector2 PathFinding::NextPathPosition()
 {
 	int index = 1;
 	vector2 nextPosition;
@@ -63,13 +63,9 @@ vector2 PathFinding::NextPathPosition(Ghost *ghost)
 	nextPosition.y = m_path[m_path.size() - index]->y;
 
 	
-	vector2 distance = nextPosition - vector2(ghost->GetX(), ghost->GetY());
 	if (index < m_path.size())
-	{
-		if (distance.Length() < 0.1)
-		{
-			m_path.erase(m_path.end() - index);
-		}
+	{		
+		m_path.erase(m_path.end() - index);		
 	}
 	return nextPosition;
 }
@@ -178,8 +174,7 @@ void PathFinding::ContinuePath()
 {
 	while (!m_foundGoal)
 	{
-		//printf("List empty -> %d\n", m_openList.empty());
-	
+		
 		if (m_openList.empty())
 		{
 			return;
@@ -197,22 +192,22 @@ void PathFinding::ContinuePath()
 			{
 				m_path.push_back(new vector2(getPath->x, getPath->y));
 			}
-
+			m_currentPathFrom = new vector2(this->m_StartNode->x, this->m_StartNode->y);
 			m_foundGoal = true;
 			return;
 		}
 		else //we dont got it.
 		{
-			printf("Right x and y : %i%i\n", currentNode->x, currentNode->y);
+			printf("Right x and y : %i%i\n", currentNode->x + 1, currentNode->y);
 			//right
 			PathOpened(currentNode->x + 1, currentNode->y, currentNode->gCost + 1, currentNode);
-			printf("Left x and y : %i%i\n", currentNode->x, currentNode->y);
+			printf("Left x and y : %i%i\n", currentNode->x -1, currentNode->y);
 			//left
 			PathOpened(currentNode->x - 1, currentNode->y, currentNode->gCost + 1, currentNode);
-			printf("Up x and y : %i%i\n", currentNode->x, currentNode->y);
+			printf("Up x and y : %i%i\n", currentNode->x, currentNode->y+1);
 			//up
 			PathOpened(currentNode->x, currentNode->y + 1, currentNode->gCost + 1, currentNode);
-			printf("Down x and y : %i%i\n", currentNode->x, currentNode->y);
+			printf("Down x and y : %i%i\n", currentNode->x, currentNode->y-1);
 			//down
 			PathOpened(currentNode->x, currentNode->y - 1, currentNode->gCost + 1, currentNode);
 			printf("End of 4 direction %i\n", m_openList.size());

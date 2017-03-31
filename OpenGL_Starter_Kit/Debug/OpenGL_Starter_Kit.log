@@ -2,9 +2,15 @@
 c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(20): warning C4018: '<': signed/unsigned mismatch
 c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(26): warning C4018: '<': signed/unsigned mismatch
 c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(32): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(67): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(106): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(124): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(157): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(219): warning C4018: '<': signed/unsigned mismatch
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(44): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(66): warning C4018: '<': signed/unsigned mismatch
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(102): warning C4018: '<': signed/unsigned mismatch
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(120): warning C4018: '<': signed/unsigned mismatch
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(153): warning C4018: '<': signed/unsigned mismatch
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(193): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(195): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(214): warning C4018: '<': signed/unsigned mismatch
   OpenGL_Starter_Kit.vcxproj -> C:\Users\Leonard\Desktop\PacManGL\Debug\OpenGL_Starter_Kit.exe

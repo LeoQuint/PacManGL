@@ -9,5 +9,8 @@ struct vector2
 
 	vector2 vector2::operator+(const vector2& vec);
 	vector2 vector2::operator-(const vector2& vec);
+
+	bool vector2::operator==(const vector2& vec);
+	bool vector2::operator!=(const vector2& vec);
 	float Length();
 };
