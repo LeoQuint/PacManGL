@@ -9,11 +9,11 @@ public:
 	Ghost(void);
 	~Ghost(void);
 	void InitGid(std::vector<std::vector<Node*>>);
+	//x,y positions of pacman are passed in.
 	boolean update(int x, int y, char gameboard[][28]);
 	void CalculatePath(int x, int y);
 	boolean IsMoving() { return moving;  }
 	boolean IsGoingOut() { return going_out; }
-	boolean goTo(vector2 location, char gameboard[][28]);
 
 	vector2 nextDestination;
 	boolean hasTarget = false;
@@ -33,7 +33,8 @@ protected:
 	
 	virtual void chase(int x, int y, char gameboard[][28]);
 	void wrap(void);
-	int dir;
+	//0 : down (gameboard[y+1][x]), 1 : up (gameboard[y-1][x]), 2 : right (gameboard[y][x+1]), 3: left (gameboard[y][x-1])
+	int m_direction;
 	int my_material;
 	float wrong_prob;
 };

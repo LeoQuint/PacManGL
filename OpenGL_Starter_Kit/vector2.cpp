@@ -29,7 +29,3 @@ bool vector2::operator!=(const vector2 & vec)
 	return !(this->x == vec.x && this->y == vec.y);
 }
 
-float vector2::Length()
-{
-	return sqrt((x*x) + (y*y));
-}

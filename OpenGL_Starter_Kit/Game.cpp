@@ -3,7 +3,7 @@
 #include <iostream>
 #include <mmsystem.h>
 
-
+								//gameboard[y][x]
 const char Game::initial_gameboard[31][28] = {//i = empty intersection, f = intersection with d, w = intersection with u
 											{'1','2','2','2','2','2','2','2','2','2','2','2','2','3','1','2','2','2','2','2','2','2','2','2','2','2','2','3'},
 											{'8','f','d','d','d','d','f','d','d','d','d','d','f','4','8','f','d','d','d','d','d','f','d','d','d','d','f','4'},
@@ -43,10 +43,10 @@ Game::Game(void)
 	dot = new Dot();
 	powerup = new Powerup();
 	pacman = new Pacman();
-	pinky = new Pinky();
+	//pinky = new Pinky();
 	blinky = new Blinky();
-	inky = new Inky();
-	clyde = new Clyde();
+	//inky = new Inky();
+	//clyde = new Clyde();
 	
 	
 	speed = 200;
@@ -114,10 +114,10 @@ void Game::draw(void)
 		}
 	}
 	pacman->draw();
-	pinky->draw();
+	//pinky->draw();
 	blinky->draw();
-	inky->draw();
-	clyde->draw();
+	//inky->draw();
+	//clyde->draw();
 
 	glViewport(width * 0.7 + x, 0 + y, width * 0.3, height);
 	glMatrixMode(GL_PROJECTION);
@@ -171,10 +171,10 @@ void Game::drawScore()
 void Game::superPacman(void)
 {
 
-	pinky->makeMortal();
+	//pinky->makeMortal();
 	blinky->makeMortal();
-	inky->makeMortal();
-	clyde->makeMortal();
+	//inky->makeMortal();
+	//clyde->makeMortal();
 
 }
 void Game::update(void)
@@ -207,17 +207,17 @@ void Game::update(void)
 		}
 		boolean hit = false;
 
-		printf("Pinky is at: %i %i\n", pinky->GetX(), pinky->GetY());
+		
 		
 		//testing
 		
-		hit = pinky->update(x, y, gameboard) || hit;
+		//hit = pinky->update(x, y, gameboard) || hit;
 		///
 		hit = blinky->update(x, y, gameboard) || hit;
 
-		hit = inky->update(x, y, gameboard) || hit;
+		//hit = inky->update(x, y, gameboard) || hit;
 
-		hit = clyde->update(x, y, gameboard) || hit;
+		//hit = clyde->update(x, y, gameboard) || hit;
 
 		if (hit) 
 		{
@@ -244,14 +244,14 @@ void Game::levelUp(void)
 void Game::newLevel(void)
 {
 	pacman->setPoint(13, 23);
-	pinky->die();
+	//pinky->die();
 	blinky->die();
-	inky->die();
-	clyde->die();
-	pinky->setPoint(12, 14);
+	//inky->die();
+	//clyde->die();
+	//pinky->setPoint(12, 14);
 	blinky->setPoint(13, 14);
-	inky->setPoint(14, 14);
-	clyde->setPoint(14, 14);
+	//inky->setPoint(14, 14);
+	//clyde->setPoint(14, 14);
 	dots = 0;
 	initGameboard();
 	
@@ -296,24 +296,11 @@ void Game::initGameboard(void)
 		grid.push_back(row);
 	}
 	//Assign the grid to each ghosts
-	pinky->InitGid(grid);
+	//pinky->InitGid(grid);
 	blinky->InitGid(grid);
-	inky->InitGid(grid);
-	clyde->InitGid(grid);
-	//debug
-	for (int i = 0; i < 31; i++)
-	{
+	//inky->InitGid(grid);
+	//clyde->InitGid(grid);
 
-		for (int j = 0; j < 28; j++)
-		{
-			if (grid[i][j]->walkable)
-				printf(" ");
-			else
-				printf("#");
-
-		}
-		printf("\n");
-	}
 
 }
 

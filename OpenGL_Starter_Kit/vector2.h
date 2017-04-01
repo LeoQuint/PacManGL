@@ -1,10 +1,10 @@
 #pragma once
 struct vector2
 {
-	float x;
-	float y;
+	int x;
+	int y;
 	vector2() : x(0), y(0) {}
-	vector2(float _x, float _y): x(_x), y(_y) {}
+	vector2(int _x, int _y): x(_x), y(_y) {}
 	~vector2() {}
 
 	vector2 vector2::operator+(const vector2& vec);
@@ -12,5 +12,5 @@ struct vector2
 
 	bool vector2::operator==(const vector2& vec);
 	bool vector2::operator!=(const vector2& vec);
-	float Length();
+
 };

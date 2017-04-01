@@ -16,7 +16,7 @@ Ghost::Ghost(void)
 	y = 0;
 	z = 0;
 	step = 1;
-	dir = rand() % 4;
+	m_direction = 1;
 	wrong_prob = 10;
 	mortal = 0;
 	material = mat;
@@ -113,37 +113,50 @@ boolean Ghost::update(int x, int y, char gameboard[][28])
 							
 void Ghost::CalculatePath(int x, int y) 
 {
-	if (!this->IsGoingOut() && vector2(this->x, this->y) != *pathfinder->m_currentPathFrom)
+	if (!this->IsGoingOut() && vector2(int(this->x), int(this->y)) != pathfinder->m_currentPathFrom)
 	{
 		pathfinder->ClearOpenList();
 		pathfinder->ClearPath();
 		pathfinder->ClearVisitedList();
-		pathfinder->FindPath(vector2(this->GetX(), this->GetY()), vector2(x, y));
 		
+		pathfinder->FindPath(vector2(int(this->GetX()), int(this->GetY())), vector2(x, y));
+		//from		
 		vector2 myPos = pathfinder->NextPathPosition();
+		//to
 		vector2 nextPos = pathfinder->NextPathPosition();
+		//delta
 		vector2 nextDir = nextPos - myPos;
+
+			
+		// 0 : down (gameboard[y+1][x])
+		if (nextDir.y == 1)
+		{
+			printf("Next direction down: %i %i\n", nextDir.x, nextDir.y);
+			m_direction = 0;
+		}
+		// 1 : up (gameboard[y-1][x])
+		else if (nextDir.y == -1)
+		{
+			printf("Next direction up: %i %i\n", nextDir.x, nextDir.y);
+			m_direction = 1;
+		}
+		// 2 : right (gameboard[y][x+1])
+		else if (nextDir.x == 1)
+		{
+			printf("Next direction right: %i %i\n", nextDir.x, nextDir.y);
+			m_direction = 2;
+		}
+		// 3: left (gameboard[y][x-1])
+		else
+		{
+			printf("Next direction left: %i %i\n", nextDir.x, nextDir.y);
+			m_direction = 3;
+		}
+
 		
-		if (nextDir.x == 1)
-		{
-			printf("Next direction right: %f%f\n", nextDir.x, nextDir.y);
-			dir = 0;
-		}
-		else if (nextDir.x == -1) 
-		{
-			printf("Next direction left: %f%f\n", nextDir.x, nextDir.y);
-			dir = 2;
-		}
-		else if (nextDir.y == 1)
-		{
-			printf("Next direction down: %f%f\n", nextDir.x, nextDir.y);
-			dir = 1;
-		}
-		else 
-		{
-			printf("Next direction up: %f%f\n", nextDir.x, nextDir.y);
-			dir = 3;
-		}
+
+	
+		
 
 	}
 }
@@ -169,15 +182,14 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 		{
 			isWrong = true;
 		}
-		printf("DIRECTION: %i\n", dir);
+		printf("DIRECTION: %i\n", m_direction);
 		printf("This ghost is %i material. (blinky 4, inky 5, pinky 6, clyde 16 )\n", this->my_material);
 		CalculatePath(x, y);
-		printf("DIRECTION: %i\n", dir);
-		printf("This ghost is %i material. (blinky 4, inky 5, pinky 6, clyde 16 )\n", this->my_material);
-		break;	
+		printf("DIRECTION: %i\n", m_direction);
+		printf("This ghost is %i material. (blinky 4, inky 5, pinky 6, clyde 16 )\n", this->my_material);	
 	default:
 		//printf("not an intersection %i%i%c\n",this->y,this->x, gameboard[my][mx]);
-		goTo(dir, gameboard);
+		goTo(m_direction, gameboard);
 		return;
 		break;
 	}
@@ -234,7 +246,7 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 		}
 	}
 	*/
-
+	/*
 	std::vector<int> tryed;
 	
 	while (!goTo(dir, gameboard))
@@ -300,29 +312,31 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 
 			break;
 		}
-	}
+	}*/
 	
 	
 }
 boolean Ghost::goTo(int dir, char gameboard[][28])
 {
+	printf("GOTO:\n");
 	int x = 0;
 	int y = 0;
 	switch (dir)
 	{
-	case 0:
-		x -= step;
+	case 0://down
+		y = 1;
 		break;
-	case 1:
-		y -= step;
+	case 1://up
+		y = -1;
 		break;
-	case 2:
-		x = step;
+	case 2://right
+		x = 1;
 		break;
-	case 3:
-		y = step;
+	case 3://left
+		x = -1;
 		break;
 	}
+	printf("Moving to tile: %c \n", gameboard[int(this->y + y)][int(this->x + x)]);
 	switch (gameboard[int(this->y + y)][int(this->x + x)])
 	{
 	case '0':
@@ -342,29 +356,8 @@ boolean Ghost::goTo(int dir, char gameboard[][28])
 		break;
 	}
 }
-boolean Ghost::goTo(vector2 location, char gameboard[][28])
-{
 
-	switch (gameboard[int(location.x)][int(location.y)])
-	{
-	case '0':
-	case 'i':
-	case 'd':
-	case 'f':
-	case 'u':
-	case 'w':
-
-		this->y = int(location.y);
-		this->x = int(location.x);
-		return true;
-	case '9':
-		wrap();
-	default:
-		return false;
-		break;
-	}
-}
-
+//wrap around
 void Ghost::wrap(void)
 {
 	setPoint(abs(x - 27), y);
