@@ -158,7 +158,7 @@ int main(int argc, char *argv[])
     glutKeyboardFunc(key);
     glutSpecialFunc(special);
     glutIdleFunc(idle);
-    glutTimerFunc(1000,myTimer,1000);
+    glutTimerFunc(3000,myTimer,3000);
 	
 	glutMainLoop();
 

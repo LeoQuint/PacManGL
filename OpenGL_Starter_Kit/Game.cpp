@@ -58,7 +58,7 @@ Game::Game(void)
 }
 void Game::playSound(void)
 {
-	PlaySoundA((LPCSTR)"C:/Users/Leonard/Desktop/PacManOpenGL/Debug/pacman_chomp.wav", NULL, SND_FILENAME | SND_ASYNC);
+	PlaySoundA((LPCSTR)"C:/Users/Leonard/Desktop/PacManOpenGL/Debug/pacman_chomp.wav", NULL, SND_LOOP | SND_ASYNC);
 }
 void Game::initHeaders(void)
 {

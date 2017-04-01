@@ -1,4 +1,5 @@
-﻿  Ghost.cpp
-  Game.cpp
-  Generating Code...
+﻿  main.cpp
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\main.cpp(13): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\main.cpp(14): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+c:\users\leonard\desktop\pacmangl\opengl_starter_kit\main.cpp(19): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
   OpenGL_Starter_Kit.vcxproj -> C:\Users\Leonard\Desktop\PacManGL\Debug\OpenGL_Starter_Kit.exe
