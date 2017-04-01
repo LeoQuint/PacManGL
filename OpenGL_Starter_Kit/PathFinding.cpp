@@ -83,50 +83,53 @@ void PathFinding::SetStartAndTarget(Node start, Node target)
 	//finaly add to list.
 	m_openList.push_back(m_StartNode);
 }
-
+//Openning a new path (adding a new node to openList)
+//X & Y positions, newCost is the previous node's gCost +1 (since we use manhattan distance)
+//Parent node is the node we came from.
 void PathFinding::PathOpened(int x, int y, float newCost, Node * parent)
 {
-	
-	if (!m_grid[x][y]->walkable) 
-	{
-		//printf("Tile not walkable skipping... \n");
-		return;
+	//Check if the Node location is passable terrain.
+	if (!m_grid[y][x]->walkable) 
+	{	
+		return;//Hit a wall.
 	}
-	
+	//The id system for node is a 1D array representation of [y][x].
 	int id = y * ROW_SIZE + x;
+	//Check if this node has already been visited.
 	for (int i = 0; i < m_visitedList.size(); i++)
 	{
 		if (id == m_visitedList[i]->id) 
 		{
-			//printf("Location previously visited.\n");
-			return;
+			return;//We already checked this location.
 		}
 	}
 
-	//printf("Accessing grid at: %i %i\n", x, y);
-	Node *child = new Node(m_grid[x][y]->walkable, x, y, parent);
+	//Create a new node to add to our open list.
+	Node *child = new Node(m_grid[y][x]->walkable, x, y, parent);
+	//This new node's gCost is the parent's gCost +1.
 	child->gCost = newCost;
+	//Calculate the hCost using our manhattan distance.
 	child->hCost = child->ManhattanDistance(m_targetNode);
-	//printf("New h cost of: %f\n", child->hCost);
-	if (child->hCost == 0)
-	{
-		printf("Zero hcost, we hit the target.\n");
-	}
+
+	//Now that we have values for gCost and hCost we verify if we already have this node in 
+	//our openList.
 	for (int i = 0; i < m_openList.size(); i++)
 	{
-		//printf("Accessing open size / access %i%s%i\n", m_openList.size(), " / ",i);
-		if (id == m_openList[i]->id) //if we already have this node in our open list.
+		//if we already have this node in our open list we want to make sure that this node has the lowest fCost
+		//possible from the two. This whould happen if it was previously opened from a different path and the current
+		//path we are also trying to open it from is shorter.
+		if (id == m_openList[i]->id)
 		{
-			float newF = child->fCost() /*+ newCost + m_openList[i]->hCost*/;
-
-			if (m_openList[i]->fCost() > newF)	//check is this path has a lower fcost
-												//if it does, replace it with the child
+			//if fCost is lower on the child.
+			if (m_openList[i]->fCost() > child->fCost())	
 			{
-				m_openList[i]->gCost = child->gCost/* + newCost*/;
+				//assign the new gCost (the length of the path we took)
+				m_openList[i]->gCost = child->gCost;
+				//assign the parent node (the actual path we used)
 				m_openList[i]->parent = child->parent;
 				return;
 			}
-			else //worst fcost, simply remove the child of memory.
+			else //worst fCost, simply remove the child of memory.
 			{
 				delete child;
 				return;
@@ -134,7 +137,6 @@ void PathFinding::PathOpened(int x, int y, float newCost, Node * parent)
 		}
 	}
 	//if we have yet to open this node, add to openlist.
-	//printf("Adding new node to OpenList.");
 	m_openList.push_back(child);
 
 }
@@ -215,15 +217,7 @@ void PathFinding::ContinueSearch()
 			PathOpened(currentNode->x, currentNode->y + 1, currentNode->gCost + 1, currentNode);
 			//Check down
 			PathOpened(currentNode->x, currentNode->y - 1, currentNode->gCost + 1, currentNode);
-
-			for (int i = 0; i < m_openList.size(); i++)
-			{
-				//printf("CurrentNode id %i %i\n", currentNode->id, m_openList[i]->id);
-				if (currentNode->id == m_openList[i]->id)
-				{
-					m_openList.erase(m_openList.begin() + i);
-				}
-			}
+			
 		}
 	}
 

@@ -1,10 +1,4 @@
-﻿  PathFinding.cpp
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(19): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(25): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(31): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(66): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(101): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(119): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(152): warning C4018: '<': signed/unsigned mismatch
-c:\users\leonard\desktop\pacmangl\opengl_starter_kit\pathfinding.cpp(210): warning C4018: '<': signed/unsigned mismatch
+﻿  Ghost.cpp
+  Game.cpp
+  Generating Code...
   OpenGL_Starter_Kit.vcxproj -> C:\Users\Leonard\Desktop\PacManGL\Debug\OpenGL_Starter_Kit.exe

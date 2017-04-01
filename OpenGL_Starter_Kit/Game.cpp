@@ -19,7 +19,7 @@ const char Game::initial_gameboard[31][28] = {//i = empty intersection, f = inte
 											{'0','0','0','0','0','4','d','8','4','i','0','0','i','i','i','i','0','0','i','4','8','d','8','0','0','0','0','0'},
 											{'0','0','0','0','0','4','d','8','4','0','1','2','2','-','-','2','2','3','0','4','8','d','8','0','0','0','0','0'},
 											{'6','6','6','6','6','5','d','7','5','0','8','0','0','0','0','0','0','4','0','5','7','d','7','6','6','6','6','6'},
-											{'9','0','0','0','0','i','d','0','0','i','8','0','0','0','0','0','0','4','i','0','0','d','i','0','0','0','0','9'},
+											{'9','0','0','0','0','0','f','0','0','i','8','0','0','0','0','0','0','4','i','0','0','f','0','0','0','0','0','9'},
 											{'2','2','2','2','2','3','d','1','3','0','8','0','0','0','0','0','0','4','0','1','3','d','1','2','2','2','2','2'},
 											{'0','0','0','0','0','4','d','8','4','0','7','6','6','6','6','6','6','5','0','8','4','d','8','0','0','0','0','0'},
 											{'0','0','0','0','0','4','d','8','4','i','0','0','0','0','0','0','0','0','i','8','4','d','8','0','0','0','0','0'},
@@ -43,10 +43,10 @@ Game::Game(void)
 	dot = new Dot();
 	powerup = new Powerup();
 	pacman = new Pacman();
-	//pinky = new Pinky();
+	pinky = new Pinky();
 	blinky = new Blinky();
-	//inky = new Inky();
-	//clyde = new Clyde();
+	inky = new Inky();
+	clyde = new Clyde();
 	
 	
 	speed = 200;
@@ -114,10 +114,10 @@ void Game::draw(void)
 		}
 	}
 	pacman->draw();
-	//pinky->draw();
+	pinky->draw();
 	blinky->draw();
-	//inky->draw();
-	//clyde->draw();
+	inky->draw();
+	clyde->draw();
 
 	glViewport(width * 0.7 + x, 0 + y, width * 0.3, height);
 	glMatrixMode(GL_PROJECTION);
@@ -171,10 +171,10 @@ void Game::drawScore()
 void Game::superPacman(void)
 {
 
-	//pinky->makeMortal();
+	pinky->makeMortal();
 	blinky->makeMortal();
-	//inky->makeMortal();
-	//clyde->makeMortal();
+	inky->makeMortal();
+	clyde->makeMortal();
 
 }
 void Game::update(void)
@@ -208,16 +208,13 @@ void Game::update(void)
 		boolean hit = false;
 
 		
+		hit = pinky->update(x, y, gameboard) || hit;
 		
-		//testing
-		
-		//hit = pinky->update(x, y, gameboard) || hit;
-		///
 		hit = blinky->update(x, y, gameboard) || hit;
 
-		//hit = inky->update(x, y, gameboard) || hit;
+		hit = inky->update(x, y, gameboard) || hit;
 
-		//hit = clyde->update(x, y, gameboard) || hit;
+		hit = clyde->update(x, y, gameboard) || hit;
 
 		if (hit) 
 		{
@@ -244,14 +241,14 @@ void Game::levelUp(void)
 void Game::newLevel(void)
 {
 	pacman->setPoint(13, 23);
-	//pinky->die();
+	pinky->die();
 	blinky->die();
-	//inky->die();
-	//clyde->die();
-	//pinky->setPoint(12, 14);
+	inky->die();
+	clyde->die();
+	pinky->setPoint(12, 14);
 	blinky->setPoint(13, 14);
-	//inky->setPoint(14, 14);
-	//clyde->setPoint(14, 14);
+	inky->setPoint(14, 14);
+	clyde->setPoint(14, 14);
 	dots = 0;
 	initGameboard();
 	
@@ -296,10 +293,10 @@ void Game::initGameboard(void)
 		grid.push_back(row);
 	}
 	//Assign the grid to each ghosts
-	//pinky->InitGid(grid);
+	pinky->InitGid(grid);
 	blinky->InitGid(grid);
-	//inky->InitGid(grid);
-	//clyde->InitGid(grid);
+	inky->InitGid(grid);
+	clyde->InitGid(grid);
 
 
 }

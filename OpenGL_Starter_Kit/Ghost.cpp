@@ -163,7 +163,7 @@ void Ghost::CalculatePath(int x, int y)
 				//x y represent pacman's position.
 void Ghost::chase(int x, int y, char gameboard[][28])
 {
-
+	printf("Chasing...");
 	int deltaX = abs(this->x - x);
 	int deltaY = abs(this->y - y);
 
@@ -180,20 +180,27 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 		//Calculating a new target each intersection.
 		if (rand() % 100 < wrong_prob)//Calculate if the AI will go in a diff direction.
 		{
-			isWrong = true;
+			printf("Going the wrong direction!! \n");
+			m_direction = rand() % 4;
+			std::vector<int> tryed;
+
+			while (!goTo(m_direction, gameboard))
+			{
+				m_direction = rand() % 4;
+			}
 		}
-		printf("DIRECTION: %i\n", m_direction);
-		printf("This ghost is %i material. (blinky 4, inky 5, pinky 6, clyde 16 )\n", this->my_material);
-		CalculatePath(x, y);
-		printf("DIRECTION: %i\n", m_direction);
-		printf("This ghost is %i material. (blinky 4, inky 5, pinky 6, clyde 16 )\n", this->my_material);	
+		else 
+		{
+			CalculatePath(x, y);
+			goTo(m_direction, gameboard);
+		}
+		break;
 	default:
-		//printf("not an intersection %i%i%c\n",this->y,this->x, gameboard[my][mx]);
 		goTo(m_direction, gameboard);
-		return;
 		break;
 	}
 	//try the best direction.
+	//This is hacky AI if you want.
 	/*
 	if (!isWrong) 
 	{
@@ -246,76 +253,11 @@ void Ghost::chase(int x, int y, char gameboard[][28])
 		}
 	}
 	*/
-	/*
-	std::vector<int> tryed;
 	
-	while (!goTo(dir, gameboard))
-	{
-		tryed.push_back(dir);
-		switch (dir) 
-		{
-		case 0:
-			if (this->y > y && tryed.end() == std::find(tryed.begin(), tryed.end(), 1))
-			{
-				dir = 1;
-			}
-			else if( tryed.end() == std::find(tryed.begin(), tryed.end(), 3))
-			{
-				dir = 3;
-			}
-			else 
-			{
-				dir = 2;
-			}
-			break;
-		case 1:
-			if (this->x > x  && tryed.end() == std::find(tryed.begin(), tryed.end(), 0))
-			{
-				dir = 0;
-			}
-			else if(tryed.end() == std::find(tryed.begin(), tryed.end(), 2))
-			{
-				dir = 2;
-			}
-			else 
-			{
-				dir = 3;
-			}
-			break;
-		case 2:
-			if (this->y > y && tryed.end() == std::find(tryed.begin(), tryed.end(), 1))
-			{
-				dir = 1;
-			}
-			else if(tryed.end() == std::find(tryed.begin(), tryed.end(), 3))
-			{
-				dir = 3;
-			}
-			else 
-			{
-				dir = 0;
-			}
-			break;
-		case 3:
-			if (this->x > x && tryed.end() == std::find(tryed.begin(), tryed.end(), 0))
-			{
-				dir = 0;
-			}
-			else if(tryed.end() == std::find(tryed.begin(), tryed.end(), 2))
-			{
-				dir = 2;
-			}
-			else 
-			{
-				dir = 1;
-			}
 
-			break;
-		}
-	}*/
-	
-	
 }
+
+
 boolean Ghost::goTo(int dir, char gameboard[][28])
 {
 	printf("GOTO:\n");
